@@ -134,7 +134,10 @@ export default function GuardIADashboard() {
         {/* este boton esta solo para ver los dos estados deveria quitarse despues */}
         <TouchableOpacity
           style={styles.demoButton}
-          onPress={() => setHasAlert(!hasAlert)}
+          onPress={() => {
+            setHasAlert(!hasAlert);
+            console.log("alerta actual: ", !hasAlert);
+          }}
         >
           <Text style={styles.demoButtonText}>cambiar_estado</Text>
         </TouchableOpacity>
