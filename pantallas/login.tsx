@@ -15,7 +15,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 
 const { width, height } = Dimensions.get("window");
 
-// Definición de colores extraída del Tailwind config
 const COLORS = {
   backgroundDark: "#020c17",
   corporateBlue: "#197fe6",
@@ -188,7 +187,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingHorizontal: 24,
-    paddingTop: 60, // Espacio extra superior para evitar cámara/notch
+    paddingTop: 60,
     paddingBottom: 20,
   },
   // Background Effects

@@ -4,11 +4,13 @@ import GuardIALogin from "./pantallas/login";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import GuardIADashboard from "./pantallas/home";
 import AlertDetail from "./pantallas/detalleAlerta";
+import ClientProfile from "./pantallas/perfil";
+import CamerasScreen from "./pantallas/camaraDirecto";
 
 export default function App() {
   return (
     <SafeAreaProvider>
-      <AlertDetail />
+      <CamerasScreen />
     </SafeAreaProvider>
   );
 }
