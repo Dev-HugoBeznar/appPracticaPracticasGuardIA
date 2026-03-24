@@ -83,18 +83,20 @@ const CameraCard: React.FC<CameraCardProps> = ({
   imageUri,
   offline = false,
 }) => (
-  <View style={styles.cameraCard}>
+  <TouchableOpacity
+    style={styles.cameraCard}
+    onPress={() => console.log("boton_camaraIndividual_" + name)}
+    activeOpacity={0.85}
+  >
     <ImageBackground
       source={{ uri: imageUri }}
       style={styles.cameraImage}
       imageStyle={[styles.cameraImageStyle, offline && styles.offlineImage]}
     >
-      {/* Gradient overlay (simulated with a semi-transparent View) */}
       {!offline && <View style={styles.gradientOverlay} />}
 
       {offline ? (
         <View style={styles.offlineOverlay}>
-          {/* Icon placeholder — replace with <MaterialIcons name="videocam-off" size={24} color="#94a3b8" /> */}
           <Text style={styles.offlineIcon}>📵</Text>
           <Text style={styles.offlineLabel}>DESCONECTADA</Text>
         </View>
@@ -112,7 +114,7 @@ const CameraCard: React.FC<CameraCardProps> = ({
         <Text style={styles.cameraSub}>{sub}</Text>
       </View>
     </ImageBackground>
-  </View>
+  </TouchableOpacity>
 );
 
 // ─── Camera data ──────────────────────────────────────────────────────────────
@@ -563,38 +565,6 @@ const styles = StyleSheet.create({
   },
 
   // Bottom nav
-  bottomNav: {
-    flexDirection: "row",
-    borderTopWidth: 1,
-    borderTopColor: "#1e293b",
-    backgroundColor: "rgba(26,38,50,0.97)",
-    paddingBottom: 20,
-    paddingTop: 10,
-    paddingHorizontal: 8,
-  },
-  navItem: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 3,
-  },
-  navIcon: {
-    fontSize: 22,
-    opacity: 0.5,
-  },
-  navIconActive: {
-    opacity: 1,
-  },
-  navLabel: {
-    color: "#93adc8",
-    fontSize: 9,
-    fontWeight: "500",
-  },
-  navLabelActive: {
-    color: COLORS.primary,
-    fontWeight: "700",
-  },
-
   bottomTabBar: {
     position: "absolute",
     bottom: 0,
