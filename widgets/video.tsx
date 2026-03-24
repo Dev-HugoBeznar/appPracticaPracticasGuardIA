@@ -84,12 +84,6 @@ export default function VideoPlayer({ url }: VideoPlayerProps) {
         shouldPlay={false}
       />
 
-      {/* Badge REC */}
-      <View style={styles.recordingBadge}>
-        <View style={styles.recordingDot} />
-        <Text style={styles.recordingText}>REC</Text>
-      </View>
-
       {/* Botón play central */}
       {!isPlaying && (
         <View style={styles.videoOverlay}>

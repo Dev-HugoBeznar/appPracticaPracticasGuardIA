@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
   ImageBackground,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_GAP = 12;
@@ -26,6 +27,7 @@ const COLORS = {
   slate900: "#0f172a",
   slate800: "#1e293b",
   slate400: "#94a3b8",
+  slate500: "#64748b",
   green500: "#22c55e",
   red600: "#dc2626",
 };
@@ -113,22 +115,6 @@ const CameraCard: React.FC<CameraCardProps> = ({
   </View>
 );
 
-// ─── Nav item ─────────────────────────────────────────────────────────────────
-interface NavItemProps {
-  icon: string;
-  label: string;
-  active?: boolean;
-}
-
-const NavItem: React.FC<NavItemProps> = ({ icon, label, active = false }) => (
-  <TouchableOpacity style={styles.navItem} onPress={() => console.log(label)}>
-    <Text style={[styles.navIcon, active && styles.navIconActive]}>{icon}</Text>
-    <Text style={[styles.navLabel, active && styles.navLabelActive]}>
-      {label}
-    </Text>
-  </TouchableOpacity>
-);
-
 // ─── Camera data ──────────────────────────────────────────────────────────────
 const cameras: CameraCardProps[] = [
   {
@@ -173,6 +159,7 @@ const cameras: CameraCardProps[] = [
 // ─── Main screen ──────────────────────────────────────────────────────────────
 const CamerasScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
+  const [activeTab, setActiveTab] = useState("home");
 
   return (
     <View style={[styles.safeArea, { paddingTop: insets.top }]}>
@@ -251,11 +238,94 @@ const CamerasScreen: React.FC = () => {
       </ScrollView>
 
       {/* Bottom Navigation */}
-      <View style={styles.bottomNav}>
-        <NavItem icon="🏠" label="Inicio" />
-        <NavItem icon="📹" label="Cámaras" active />
-        <NavItem icon="🔔" label="Eventos" />
-        <NavItem icon="⚙️" label="Ajustes" />
+      <View style={styles.bottomTabBar}>
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => {
+            setActiveTab("home");
+            console.log("boton_tabBar_home");
+          }}
+        >
+          <MaterialIcons
+            name="home"
+            size={24}
+            color={activeTab === "home" ? COLORS.primary : COLORS.slate500}
+          />
+          <Text
+            style={[
+              styles.tabLabel,
+              activeTab === "home" && styles.tabLabelActive,
+            ]}
+          >
+            Inicio
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => {
+            setActiveTab("cameras");
+            console.log("boton_tabBar_camaras");
+          }}
+        >
+          <MaterialIcons
+            name="videocam"
+            size={24}
+            color={activeTab === "cameras" ? COLORS.primary : COLORS.slate500}
+          />
+          <Text
+            style={[
+              styles.tabLabel,
+              activeTab === "cameras" && styles.tabLabelActive,
+            ]}
+          >
+            Cámaras
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => {
+            setActiveTab("reports");
+            console.log("boton_tabBar_reportes");
+          }}
+        >
+          <MaterialIcons
+            name="analytics"
+            size={24}
+            color={activeTab === "reports" ? COLORS.primary : COLORS.slate500}
+          />
+          <Text
+            style={[
+              styles.tabLabel,
+              activeTab === "reports" && styles.tabLabelActive,
+            ]}
+          >
+            Reportes
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => {
+            setActiveTab("settings");
+            console.log("boton_tabBar_ajustes");
+          }}
+        >
+          <MaterialIcons
+            name="settings"
+            size={24}
+            color={activeTab === "settings" ? COLORS.primary : COLORS.slate500}
+          />
+          <Text
+            style={[
+              styles.tabLabel,
+              activeTab === "settings" && styles.tabLabelActive,
+            ]}
+          >
+            Ajustes
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -523,6 +593,39 @@ const styles = StyleSheet.create({
   navLabelActive: {
     color: COLORS.primary,
     fontWeight: "700",
+  },
+
+  bottomTabBar: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    backgroundColor: `${COLORS.backgroundDark}e6`,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.slate800,
+    paddingBottom: 34,
+    paddingTop: 8,
+    paddingHorizontal: 16,
+    maxWidth: 448,
+    alignSelf: "center",
+    width: "100%",
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
+  tabLabel: {
+    fontSize: 10,
+    fontWeight: "bold",
+    color: COLORS.slate500,
+    textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  tabLabelActive: {
+    color: COLORS.primary,
   },
 });
 
